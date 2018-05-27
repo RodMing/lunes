@@ -11,11 +11,11 @@ class Chain
 	const BTC_URL = 'https://chain.so/api/v2/get_price/BTC/USD';
 	const LTC_URL = 'https://chain.so/api/v2/get_price/LTC/USD';
 	const BTC_HIST_URL = 'https://chain.so/api/v2/get_tx_received/BTC/';
+	const LTC_HIST_URL = 'https://chain.so/api/v2/get_tx_received/LTC/';
 
 	public function __construct(Client $client)
 	{
 		$this->client = $client;
-		// https://chain.so/api/v2/get_price/<BTC ou LTC>/USD
 	}
 
 	public function getBitcoinPrice()
@@ -52,6 +52,14 @@ class Chain
 	{
 		return json_decode(
 			$this->client->get(self::BTC_HIST_URL . $endereco)->getBody()->getContents(),
+			true
+		);
+	}
+
+	public function getLitecoinHist($endereco)
+	{
+		return json_decode(
+			$this->client->get(self::LTC_HIST_URL . $endereco)->getBody()->getContents(),
 			true
 		);
 	}

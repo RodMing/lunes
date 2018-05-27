@@ -16,7 +16,7 @@
           <form method="post">
             {{ csrf_field() }}
             <div class="col">
-              <input class="form-control" type="text" placeholder="Endereço">
+              <input class="form-control" type="text" placeholder="Endereço" id="btc_endereco">
             </div>
             <div class="col" align="center">
               <input class="btn btn-primary" type="submit" value="Buscar">
@@ -43,7 +43,7 @@
           <form method="post">
             {{ csrf_field() }}
             <div class="col">
-              <input class="form-control" type="text" placeholder="Endereço">
+              <input class="form-control" type="text" placeholder="Endereço" id="ltc_endereco">
             </div>
             <div class="col" align="center">
               <input class="btn btn-primary" type="submit" value="Buscar">

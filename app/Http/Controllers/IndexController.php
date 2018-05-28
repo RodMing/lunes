@@ -15,8 +15,8 @@ class IndexController extends Controller
     public function index(ChainApi $chainApi)
     {
         return view('welcome')
-            ->with('btc', $chainApi->getBitcoinPrice())
-            ->with('ltc', $chainApi->getLitecoinPrice());
+            ->with('btc', $chainApi->getPriceByCoin('btc')->data)
+            ->with('ltc', $chainApi->getPriceByCoin('ltc')->data);
     }
 
     /**
@@ -37,10 +37,19 @@ class IndexController extends Controller
      */
     public function store(Request $request, ChainApi $chainApi)
     {
+        $btc_results = $request->has('btc_endereco')
+            ? $chainApi->getTcReceivedByCoinAndAddress('btc', $request->get('btc_endereco'))->data
+            : null;
+
+        $ltc_results = $request->has('ltc_endereco')
+            ? $chainApi->getTcReceivedByCoinAndAddress('ltc', $request->get('ltc_endereco'))->data
+            : null;
+
         return view('welcome')
-            ->with('btc', $chainApi->getBitcoinPrice())
-            ->with('ltc', $chainApi->getLitecoinPrice())
-            ->with('btc_results', $chainApi->getBitcoinHist('17JzE6xsyu4kZbLosvAKUXHdbU9arAp8Uf'));
+            ->with('btc', $chainApi->getPriceByCoin('btc')->data)
+            ->with('ltc', $chainApi->getPriceByCoin('ltc')->data)
+            ->with('btc_results', $btc_results)
+            ->with('ltc_results', $ltc_results);
     }
 
     /**

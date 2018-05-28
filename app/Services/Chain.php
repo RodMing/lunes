@@ -8,59 +8,61 @@ class Chain
 {
 	private $client;
 
-	const BTC_URL = 'https://chain.so/api/v2/get_price/BTC/USD';
-	const LTC_URL = 'https://chain.so/api/v2/get_price/LTC/USD';
-	const BTC_HIST_URL = 'https://chain.so/api/v2/get_tx_received/BTC/';
-	const LTC_HIST_URL = 'https://chain.so/api/v2/get_tx_received/LTC/';
+	const BTC_PRICE_URL = 'https://chain.so/api/v2/get_price/BTC/USD';
+	const LTC_PRICE_URL = 'https://chain.so/api/v2/get_price/LTC/USD';
+	const BTC_TX_URL = 'https://chain.so/api/v2/get_tx_received/BTC/';
+	const LTC_TX_URL = 'https://chain.so/api/v2/get_tx_received/LTC/';
 
 	public function __construct(Client $client)
 	{
 		$this->client = $client;
 	}
 
-	public function getBitcoinPrice()
-	{
-		$response = json_decode(
-			$this->client->get(self::BTC_URL)->getBody()->getContents()
-		);
-
-		foreach ($response->data->prices as $key => $value) {
-            if ($value->exchange === 'bitfinex') {
-                return $value;
-            }
-        }
-
-		return null;
-	}
-
-	public function getLitecoinPrice()
-	{
-		$response = json_decode(
-			$this->client->get(self::LTC_URL)->getBody()->getContents()
-		);
-
-		foreach ($response->data->prices as $key => $value) {
-            if ($value->exchange === 'bitfinex') {
-                return $value;
-            }
-        }
-
-		return null;
-	}
-
-	public function getBitcoinHist($endereco)
+	public function getPriceByCoin($coin)
 	{
 		return json_decode(
-			$this->client->get(self::BTC_HIST_URL . $endereco)->getBody()->getContents(),
-			true
+			$this->client->get(
+				$this->getPriceUrlByCoin($coin)
+			)->getBody()->getContents()
 		);
 	}
 
-	public function getLitecoinHist($endereco)
+	public function getTcReceivedByCoinAndAddress($coin, $address)
 	{
+		if (empty($address)) {
+			throw new \Exception('Invalid Address');			
+		}
+
 		return json_decode(
-			$this->client->get(self::LTC_HIST_URL . $endereco)->getBody()->getContents(),
-			true
+			$this->client->get(
+				$this->getTxReceivedUrlByCoin($coin) . $address
+			)->getBody()->getContents()
 		);
+	}
+
+	private function getPriceUrlByCoin($coin)
+	{
+		switch (strtolower($coin)) {
+			case 'btc':
+				return self::BTC_PRICE_URL;
+			case 'ltc':
+				return self::LTC_PRICE_URL;
+			default:
+				throw new \Exception('Invalid coin');				
+				break;
+		}
+	}
+
+	private function getTxReceivedUrlByCoin($coin)
+	{
+		switch (strtolower($coin)) {
+			case 'btc':
+				return self::BTC_TX_URL;
+			case 'ltc':
+				return self::LTC_TX_URL;
+			default:
+				throw new \Exception('Invalid coin');				
+				break;
+		}
 	}
 }

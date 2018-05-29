@@ -1,0 +1,23 @@
+.row {
+	display: table;
+	overflow: hidden;
+}
+
+.col {
+	display: table-cell;
+	vertical-align: middle;
+	width: 70%;
+	text-align: center;
+}
+
+img {
+	width: 10%
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}

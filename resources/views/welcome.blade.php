@@ -2,14 +2,16 @@
     <head>
         <title>Lunes Test</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="css/default.css">
     </head>
     <body>
-        <div class="row" style="display: table; overflow: hidden;">
-          <div class="col" style="display: table-cell; vertical-align: middle; width: 70%">
-            <img src="https://site.bitcoin.com.br/wp-content/themes/bitcoin/assets/images/bitchoin-moeda.png" width="10%"/>
+        <div class="row">
+          <div class="col">
+            <img src="https://site.bitcoin.com.br/wp-content/themes/bitcoin/assets/images/bitchoin-moeda.png"/>
           </div>
-          <div class="col" align="center" style="display: table-cell; vertical-align: middle;">
+          <div class="col">
             <a href="http://bitcoin.org">bitcoin.org</a>
+            <br/>
             @foreach ($btc->prices as $price)
               @if ($price->exchange == 'bitfinex')
                 Cotação BitCoin: ${{ round($price->price, 2) }}                
@@ -17,21 +19,23 @@
             @endforeach
           </div>
         </div>
-        <div class="row" style="display: table; overflow: hidden;">
-          <form method="post">
-            {{ csrf_field() }}
-            <div class="col">
-              <input class="form-control" type="text" placeholder="Endereço" name="btc_endereco">
-            </div>
-            <div class="col" align="center">
-              <input class="btn btn-primary" type="submit" value="Buscar">
-            </div>
-          </form>
+        <div class="row">
+          <div class="col">
+            <form method="post">
+              {{ csrf_field() }}
+              <div class="col">
+                <input class="form-control" type="text" placeholder="Endereço" name="btc_endereco">
+              </div>
+              <div class="col">
+                <input class="btn btn-primary" type="submit" value="Buscar">
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="row" style="display: table; overflow: hidden;">
-          <div class="col" style="display: table-cell; vertical-align: middle; width: 70%">
+        <div class="row">
+          <div class="col">
             @isset($btc_results)
-              <table border="1px">
+              <table>
                 <tr>
                   <td>
                     <b>VALOR</b>
@@ -55,12 +59,13 @@
           </div>
         </div>
         <hr/>
-        <div class="row" style="display: table; overflow: hidden;">
-          <div class="col" style="display: table-cell; vertical-align: middle; width: 70%">
-            <img src="https://http2.mlstatic.com/D_Q_NP_721811-MLB27280659106_052018-Q.jpg" width="10%"/>
+        <div class="row">
+          <div class="col">
+            <img src="https://http2.mlstatic.com/D_Q_NP_721811-MLB27280659106_052018-Q.jpg"/>
           </div>
-          <div class="col" align="center" style="display: table-cell; vertical-align: middle;">
+          <div class="col">
             <a href="http://litecoin.org">litecoin.org</a>
+            <br/>
             @foreach ($ltc->prices as $price)
               @if ($price->exchange == 'bitfinex')
                 Cotação BitCoin: ${{ round($price->price, 2) }}                
@@ -68,21 +73,23 @@
             @endforeach
           </div>
         </div>
-        <div class="row" style="display: table; overflow: hidden;">
-          <form method="post">
-            {{ csrf_field() }}
-            <div class="col">
-              <input class="form-control" type="text" placeholder="Endereço" name="ltc_endereco">
-            </div>
-            <div class="col" align="center">
-              <input class="btn btn-primary" type="submit" value="Buscar">
-            </div>
-          </form>
+        <div class="row">
+          <div class="col">
+            <form method="post">
+              {{ csrf_field() }}
+              <div class="col">
+                <input class="form-control" type="text" placeholder="Endereço" name="ltc_endereco">
+              </div>
+              <div class="col">
+                <input class="btn btn-primary" type="submit" value="Buscar">
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="row" style="display: table; overflow: hidden;">
-          <div class="col" style="display: table-cell; vertical-align: middle; width: 70%">
+        <div class="row">
+          <div class="col">
             @isset($ltc_results)
-              <table border="1px">
+              <table>
                 <tr>
                   <td>
                     <b>VALOR</b>
